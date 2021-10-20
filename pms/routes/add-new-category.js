@@ -26,30 +26,6 @@ function checkLoginUser(req, res, next) {
     next();
 }
 
-function checkUsername(req, res, next) {
-    var uname = req.body.uname;
-    var checkexitemail = userModule.findOne({ username: uname });
-    checkexitemail.exec((err, data) => {
-        if (err) throw err;
-        if (data) {
-            return res.render('signup', { title: 'Password Management System', msg: 'Username Already Exit' });
-        }
-        next();
-    });
-}
-
-function checkEmail(req, res, next) {
-    var email = req.body.email;
-    var checkexitemail = userModule.findOne({ email: email });
-    checkexitemail.exec((err, data) => {
-        if (err) throw err;
-        if (data) {
-            return res.render('signup', { title: 'Password Management System', msg: 'Email Already Exit' });
-        }
-        next();
-    });
-}
-
 router.get('/', checkLoginUser, function (req, res, next) {
     var loginUser = localStorage.getItem('loginUser');
 
@@ -60,7 +36,6 @@ router.post('/', checkLoginUser, [check('passwordCategory', 'Enter Password Cate
     var loginUser = localStorage.getItem('loginUser');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-
         res.render('addNewCategory', { title: 'Password Management System', loginUser: loginUser, errors: errors.mapped(), success: '' });
 
     } else {

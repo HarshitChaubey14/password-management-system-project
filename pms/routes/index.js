@@ -9,7 +9,6 @@ const { check, validationResult } = require('express-validator');
 
 const getPassCat = passCatModel.find({});
 const getAllPass = passModel.find({});
-/* GET home page. */
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;

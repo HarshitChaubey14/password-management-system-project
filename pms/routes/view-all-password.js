@@ -26,62 +26,6 @@ function checkLoginUser(req, res, next) {
     next();
 }
 
-function checkUsername(req, res, next) {
-    var uname = req.body.uname;
-    var checkexitemail = userModule.findOne({ username: uname });
-    checkexitemail.exec((err, data) => {
-        if (err) throw err;
-        if (data) {
-            return res.render('signup', { title: 'Password Management System', msg: 'Username Already Exit' });
-        }
-        next();
-    });
-}
-
-function checkEmail(req, res, next) {
-    var email = req.body.email;
-    var checkexitemail = userModule.findOne({ email: email });
-    checkexitemail.exec((err, data) => {
-        if (err) throw err;
-        if (data) {
-            return res.render('signup', { title: 'Password Management System', msg: 'Email Already Exit' });
-        }
-        next();
-    });
-}
-
-/**
-router.get('/view-all-password', checkLoginUser, function (req, res, next) {
-  var loginUser = localStorage.getItem('loginUser');
-
-  var perPage = 3;
-  var page = req.params.page || 1;
-
-  getAllPass.clone().skip((perPage * page) - perPage).limit(perPage).exec(function (err, data) {
-    if (err) throw err;
-
-    passModel.countDocuments({}).exec((err, count) => {
-      res.render('view-all-password', { title: 'Password Management System', loginUser: loginUser, records: data, current: page, pages: Math.ceil(count / perPage) });
-    });
-  });
-});
-
-router.get('/view-all-password/:page', checkLoginUser, function (req, res, next) {
-  var loginUser = localStorage.getItem('loginUser');
-
-  var perPage = 3;
-  var page = req.params.page || 1;
-
-  getAllPass.clone().skip((perPage * page) - perPage).limit(perPage).exec(function (err, data) {
-    if (err) throw err;
-
-    passModel.countDocuments({}).exec((err, count) => {
-      res.render('view-all-password', { title: 'Password Management System', loginUser: loginUser, records: data, current: page, pages: Math.ceil(count / perPage) });
-    });
-  });
-});
-*/
-
 router.get('/', checkLoginUser, function (req, res, next) {
     var loginUser = localStorage.getItem('loginUser');
 
@@ -154,3 +98,35 @@ router.get('/delete/:id', checkLoginUser, function (req, res, next) {
 });
 
 module.exports = router;
+
+/**
+router.get('/view-all-password', checkLoginUser, function (req, res, next) {
+  var loginUser = localStorage.getItem('loginUser');
+
+  var perPage = 3;
+  var page = req.params.page || 1;
+
+  getAllPass.clone().skip((perPage * page) - perPage).limit(perPage).exec(function (err, data) {
+    if (err) throw err;
+
+    passModel.countDocuments({}).exec((err, count) => {
+      res.render('view-all-password', { title: 'Password Management System', loginUser: loginUser, records: data, current: page, pages: Math.ceil(count / perPage) });
+    });
+  });
+});
+
+router.get('/view-all-password/:page', checkLoginUser, function (req, res, next) {
+  var loginUser = localStorage.getItem('loginUser');
+
+  var perPage = 3;
+  var page = req.params.page || 1;
+
+  getAllPass.clone().skip((perPage * page) - perPage).limit(perPage).exec(function (err, data) {
+    if (err) throw err;
+
+    passModel.countDocuments({}).exec((err, count) => {
+      res.render('view-all-password', { title: 'Password Management System', loginUser: loginUser, records: data, current: page, pages: Math.ceil(count / perPage) });
+    });
+  });
+});
+*/
